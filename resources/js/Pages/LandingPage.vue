@@ -11,6 +11,7 @@ import { Head, Link } from '@inertiajs/vue3';
             <v-spacer></v-spacer>
             <Link href="/login" class="btn btn-primary m">Iniciar sesión</Link>
             <Link href="/register" class="btn btn-secondary ml-2 mr-10">Registrarse</Link>
+            <button href="/login">holaaaaaaa</button>
         </v-app-bar>
 
         <v-main>
