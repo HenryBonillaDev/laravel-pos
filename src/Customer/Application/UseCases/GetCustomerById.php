@@ -3,13 +3,13 @@
 namespace Src\Customer\Application\UseCases;
 
 use Src\Customer\Domain\Customer;
-use Src\Customer\Domain\CustomerRepository;
+use Src\Customer\Domain\CustomerRepositoryInterface;
 
 class GetCustomerById
 {
-    private CustomerRepository $repository;
+    private CustomerRepositoryInterface $repository;
 
-    public function __construct(CustomerRepository $repository)
+    public function __construct(CustomerRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }

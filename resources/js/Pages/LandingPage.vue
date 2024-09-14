@@ -1,17 +1,16 @@
 <script setup>
-import { Head, Link } from '@inertiajs/vue3';
+import {Head, Link} from '@inertiajs/vue3';
 
 </script>
 
 <template>
-    <Head title="Inicio" />
+    <Head title="Inicio"/>
     <v-app>
         <v-app-bar app color="primary" dark>
             <v-toolbar-title class="ml-10">DuvNic POS</v-toolbar-title>
             <v-spacer></v-spacer>
             <Link href="/login" class="btn btn-primary m">Iniciar sesión</Link>
             <Link href="/register" class="btn btn-secondary ml-2 mr-10">Registrarse</Link>
-            <button href="/login">holaaaaaaa</button>
         </v-app-bar>
 
         <v-main>

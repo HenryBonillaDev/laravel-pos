@@ -3,10 +3,10 @@
 namespace Src\Customer\Infrastructure\Repositories;
 
 use Src\Customer\Domain\Customer;
-use Src\Customer\Domain\CustomerRepository;
+use Src\Customer\Domain\CustomerRepositoryInterface;
 use Src\Customer\Infrastructure\Persistence\EloquentCustomer;
 
-class EloquentCustomerRepository implements CustomerRepository
+class CustomerRepository implements CustomerRepositoryInterface
 {
 
     public function save(Customer $customer): void
@@ -62,18 +62,6 @@ class EloquentCustomerRepository implements CustomerRepository
 
     public function findAll(): array
     {
-        $eloquentCustomer = EloquentCustomer::all();
-        $customers = [];
-        foreach ($eloquentCustomer as $customer) {
-            $customers[] = new Customer(
-                $customer->id,
-                $customer->name,
-                $customer->last_name,
-                $customer->doc_type,
-                $customer->dni,
-                $customer->email
-            );
-        }
-        return $customers;
+        return EloquentCustomer::all()->toArray();
     }
 }

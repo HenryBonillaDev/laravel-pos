@@ -5,6 +5,9 @@ namespace Src\Customer\Infrastructure\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Inertia\Inertia;
+use Inertia\Response;
 use Src\Customer\Application\UseCases\CreateCustomer;
 use Src\Customer\Application\UseCases\DeleteCustomer;
 use Src\Customer\Application\UseCases\GetCustomerById;
@@ -34,10 +37,12 @@ class CustomerController extends Controller
         $this->listCustomers = $listCustomers;
     }
 
-    public function index(): JsonResponse
+    public function index(): Response
     {
         $customers = $this->listCustomers->execute();
-        return response()->json($customers);
+        return Inertia::render('Customers/Index', [
+            'customers' => $customers
+        ]);
     }
 
     public function store(Request $request): JsonResponse

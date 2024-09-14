@@ -2,7 +2,10 @@
 
 namespace Src\Customer\Domain;
 
-class Customer
+use Illuminate\Support\Facades\Log;
+use Ramsey\Uuid\Uuid;
+
+class Customer implements \Stringable
 {
     private string $id;
     private string $name;
@@ -36,7 +39,7 @@ class Customer
         string $email
     ): self
     {
-        $id = uuid_create(UUID_TYPE_RANDOM);
+        $id = Uuid::uuid4()->toString();
 //        self::validate($name, $lastName, $docType, $dni, $email);
         return new self($id, $name, $lastName, $docType, $dni, $email);
     }
@@ -104,5 +107,42 @@ class Customer
     public function email(): string
     {
         return $this->email;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'lastName' => $this->lastName,
+            'docType' => $this->docType,
+            'dni' => $this->dni,
+            'email' => $this->email
+        ];
+    }
+
+    public function __toString()
+    {
+        return sprintf(
+            'Customer { id: %s, name: %s, lastName: %s, docType: %s, dni: %s, email: %s }',
+            $this->id,
+            $this->name,
+            $this->lastName,
+            $this->docType,
+            $this->dni,
+            $this->email
+        );
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'lastName' => $this->lastName,
+            'docType' => $this->docType,
+            'dni' => $this->dni,
+            'email' => $this->email
+        ];
     }
 }

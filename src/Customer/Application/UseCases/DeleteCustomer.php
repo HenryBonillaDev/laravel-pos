@@ -2,13 +2,13 @@
 
 namespace Src\Customer\Application\UseCases;
 
-use Src\Customer\Domain\CustomerRepository;
+use Src\Customer\Domain\CustomerRepositoryInterface;
 
 class DeleteCustomer
 {
     private $repository;
 
-    public function __construct(CustomerRepository $repository)
+    public function __construct(CustomerRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }

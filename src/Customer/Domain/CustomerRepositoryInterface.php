@@ -2,7 +2,7 @@
 
 namespace Src\Customer\Domain;
 
-interface CustomerRepository
+interface CustomerRepositoryInterface
 {
     public function save(Customer $customer): void;
 
