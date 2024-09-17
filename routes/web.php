@@ -6,6 +6,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Src\Customer\Infrastructure\Http\Controllers\CustomerController;
+use Src\Product\Infrastructure\Http\Controllers\ProductController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +44,10 @@ Route::middleware('auth')->group(function () {
 
     //Customers
     Route::get('customers', [CustomerController::class, 'index'])->name('customers.index');
+
+    //Products
+    Route::get('products', [ProductController::class, 'index'])->name('products.index');
+
 });
 
 require __DIR__.'/auth.php';

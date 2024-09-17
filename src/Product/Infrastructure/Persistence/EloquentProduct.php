@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Customer\Infrastructure\Persistence;
+namespace Src\Product\Infrastructure\Persistence;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -8,17 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @mixin Builder
  */
-class EloquentCustomer extends Model
+class EloquentProduct extends Model
 {
-    protected $table = 'customers';
+    protected $table = 'products';
     public $incrementing = false;
     protected $keyType = 'string'; //(UUID)
     protected $fillable = [
         'id',
         'name',
-        'last_name',
-        'doc_type',
-        'dni',
-        'email'
+        'stock',
+        'id_category',
+        'price',
+        'sale_price',
+        'other_price',
+        'state',
     ];
 }

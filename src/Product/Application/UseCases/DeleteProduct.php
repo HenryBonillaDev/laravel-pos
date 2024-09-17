@@ -6,7 +6,7 @@ use Src\Product\Domain\ProductRepository;
 
 class DeleteProduct
 {
-    private $repository;
+    private ProductRepository $repository;
 
     public function __construct(ProductRepository $repository)
     {
@@ -15,12 +15,12 @@ class DeleteProduct
 
     public function execute(string $id): bool
     {
-        $Product = $this->repository->findById($id);
+        $product = $this->repository->findById($id);
 
-        if (!$Product) {
+        if (!$product) {
             return false;
         }
-        $this->repository->delete($Product->id());
+        $this->repository->delete($product->id());
 
         return true;
     }
