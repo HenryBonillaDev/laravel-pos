@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -32,7 +32,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/about', fn () => Inertia::render('About'))->name('about');
+    Route::get('/about', fn() => Inertia::render('About'))->name('about');
 
     Route::get('users', [UserController::class, 'index'])->name('users.index');
 
@@ -42,6 +42,10 @@ Route::middleware('auth')->group(function () {
 
     //Customers
     Route::get('customers', [CustomerController::class, 'index'])->name('customers.index');
+    Route::post('customers/create', [CustomerController::class, 'store'])->name('customers.store');
+    Route::put('customers/{id}', [CustomerController::class, 'update'])->name('customers.update');
+    Route::delete('customers/{id}', [CustomerController::class, 'destroy'])->name('customers.destroy');
+
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

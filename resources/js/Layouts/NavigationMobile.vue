@@ -7,7 +7,8 @@
         leave-from-class="opacity-100"
         leave-to-class="opacity-0">
         <div v-show="$page.props.showingMobileMenu"
-             class="fixed inset-0 z-10 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center"></div>
+             @click="closeMenu"
+             class="fixed inset-0 z-10 flex items-end bg-gray-600 bg-opacity-50 sm:items-center sm:justify-center"></div>
     </transition>
     <transition
         enter-active-class="transition ease-in-out duration-150"
@@ -32,18 +33,53 @@
                                         d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
                                 </svg>
                             </template>
-                            Dashboard
+                            Inicio
                         </ResponsiveNavLink>
                     </li>
 
                     <li class="relative px-6 py-3">
-                        <ResponsiveNavLink :href="route('customers.index')" :active="route().current('customers.index')">
+                        <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                             <template #icon>
-                                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 8h6m-6 4h6m-6 4h6M6 3v18l2-2 2 2 2-2 2 2 2-2 2 2V3l-2 2-2-2-2 2-2-2-2 2-2-2Z"/>
+                                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                     viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                          stroke-width="1"
+                                          d="M9 8h6m-6 4h6m-6 4h6M6 3v18l2-2 2 2 2-2 2 2 2-2 2 2V3l-2 2-2-2-2 2-2-2-2 2-2-2Z"/>
                                 </svg>
                             </template>
-                            Users
+                            Ordenes
+                        </ResponsiveNavLink>
+                    </li>
+
+                    <li class="relative px-6 py-3">
+                        <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                            <template #icon>
+                                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                     viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                          stroke-width="1"
+                                          d="M9 10V6a3 3 0 0 1 3-3v0a3 3 0 0 1 3 3v4m3-2 .917 11.923A1 1 0 0 1 17.92 21H6.08a1 1 0 0 1-.997-1.077L6 8h12Z"/>
+                                </svg>
+                            </template>
+                            Productos
+                        </ResponsiveNavLink>
+                    </li>
+
+                    <li class="relative px-6 py-3">
+                        <ResponsiveNavLink :href="route('customers.index')"
+                                           :active="route().current('customers.index')">
+                            <template #icon>
+                                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                     viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                          stroke-width="1"
+                                          d="M9 8h6m-6 4h6m-6 4h6M6 3v18l2-2 2 2 2-2 2 2 2-2 2 2V3l-2 2-2-2-2 2-2-2-2 2-2-2Z"/>
+                                </svg>
+                            </template>
+                            Clientes
                         </ResponsiveNavLink>
                     </li>
 

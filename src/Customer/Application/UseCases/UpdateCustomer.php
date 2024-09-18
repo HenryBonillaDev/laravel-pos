@@ -2,6 +2,7 @@
 
 namespace Src\Customer\Application\UseCases;
 
+use Exception;
 use Src\Customer\Domain\Customer;
 use Src\Customer\Domain\CustomerRepositoryInterface;
 
@@ -16,9 +17,9 @@ class UpdateCustomer
 
     public function execute(string $id, array $data): ?Customer
     {
-        $customer = $this->repository->findById($id);
-
-        if (!$customer) {
+        try {
+            $customer = $this->repository->findById($id);
+        } catch (Exception) {
             return null;
         }
 

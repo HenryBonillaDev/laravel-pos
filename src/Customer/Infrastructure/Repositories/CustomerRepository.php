@@ -2,6 +2,7 @@
 
 namespace Src\Customer\Infrastructure\Repositories;
 
+use Exception;
 use Src\Customer\Domain\Customer;
 use Src\Customer\Domain\CustomerRepositoryInterface;
 use Src\Customer\Infrastructure\Persistence\EloquentCustomer;
@@ -23,19 +24,21 @@ class CustomerRepository implements CustomerRepositoryInterface
 
     public function findById(string $id): ?Customer
     {
-        $eloquentCustomer = (new EloquentCustomer)->find($id);
-        if (!$eloquentCustomer) {
+        try {
+            $eloquentCustomer = (new EloquentCustomer)->find($id);
+
+            return new Customer(
+                $eloquentCustomer->id,
+                $eloquentCustomer->name,
+                $eloquentCustomer->last_name,
+                $eloquentCustomer->doc_type,
+                $eloquentCustomer->dni,
+                $eloquentCustomer->email
+            );
+        } catch (Exception $e) {
             return null;
         }
 
-        return new Customer(
-            $eloquentCustomer->id,
-            $eloquentCustomer->name,
-            $eloquentCustomer->last_name,
-            $eloquentCustomer->doc_type,
-            $eloquentCustomer->dni,
-            $eloquentCustomer->email
-        );
     }
 
     public function delete(string $id): bool
