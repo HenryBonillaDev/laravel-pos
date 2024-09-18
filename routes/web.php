@@ -6,6 +6,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Src\Customer\Infrastructure\Http\Controllers\CustomerController;
+use Src\Product\Infrastructure\Http\Controllers\ProductController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +47,10 @@ Route::middleware('auth')->group(function () {
     Route::post('customers/create', [CustomerController::class, 'store'])->name('customers.store');
     Route::put('customers/{id}', [CustomerController::class, 'update'])->name('customers.update');
     Route::delete('customers/{id}', [CustomerController::class, 'destroy'])->name('customers.destroy');
+
+
+    //Products
+    Route::get('products', [ProductController::class, 'index'])->name('products.index');
 
 });
 

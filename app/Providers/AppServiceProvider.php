@@ -8,6 +8,8 @@ use Src\Customer\Domain\CustomerRepositoryInterface;
 use Src\Customer\Infrastructure\Repositories\CustomerRepository;
 use Src\Order\Domain\OrderRepositoryInterface;
 use Src\Order\Infrastructure\Repositories\OrderRepository;
+use Src\Product\Domain\ProductRepository;
+use Src\Product\Infrastructure\Repositories\EloquentProductRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -18,6 +20,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(CustomerRepositoryInterface::class, CustomerRepository::class);
         $this->app->bind(OrderRepositoryInterface::class, OrderRepository::class);
+        $this->app->bind(ProductRepository::class, EloquentProductRepository::class);
     }
 
     /**

@@ -7,7 +7,7 @@ use Src\Product\Domain\ProductRepository;
 
 class CreateProduct
 {
-    private $repository;
+    private ProductRepository $repository;
 
     public function __construct(ProductRepository $repository)
     {
@@ -16,7 +16,7 @@ class CreateProduct
 
     public function execute(array $data): Product
     {
-        $Product = Product::create(
+        $product = Product::create(
             $data['name'],
             $data['stock'],
             $data['id_category'],
@@ -26,8 +26,8 @@ class CreateProduct
             $data['state']
         );
 
-        $this->repository->save($Product);
+        $this->repository->save($product);
 
-        return $Product;
+        return $product;
     }
 }
