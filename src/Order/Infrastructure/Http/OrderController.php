@@ -4,6 +4,8 @@ namespace Src\Order\Infrastructure\Http;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
+use Inertia\Response;
 use Src\Order\Application\UseCases\CreateOrder;
 use Src\Order\Application\UseCases\DeleteOrder;
 use Src\Order\Application\UseCases\GetOrderById;
@@ -33,11 +35,19 @@ class OrderController
         $this->listOrders = $listOrders;
     }
 
-    public function listOrders(): JsonResponse
+    public function index(): Response
     {
         $orders = $this->listOrders->execute();
 
-        return response()->json($orders);
+        return Inertia::render('Orders/Index', [
+            'orders' => $orders
+        ]);
+    }
+
+    public function createPage(): Response
+    {
+        $this->createOrder->execute();
+        return Inertia::render('Orders/Create');
     }
 
     public function create(Request $request): JsonResponse

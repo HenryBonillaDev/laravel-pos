@@ -20,7 +20,7 @@
                 </li>
 
                 <li class="relative px-6 py-3">
-                    <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                    <NavLink :href="route('orders.index')" :active="route().current('orders.index')">
                         <template #icon>
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                  xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"

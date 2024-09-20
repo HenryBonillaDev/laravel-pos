@@ -6,6 +6,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Src\Customer\Infrastructure\Http\Controllers\CustomerController;
+use Src\Order\Infrastructure\Http\OrderController;
 use Src\Product\Infrastructure\Http\Controllers\ProductController;
 
 
@@ -52,6 +53,13 @@ Route::middleware('auth')->group(function () {
     //Products
     Route::get('products', [ProductController::class, 'index'])->name('products.index');
 
+
+    //Orders
+    Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('orders/create', [OrderController::class, 'createPage'])->name('orders.create.page');
+    Route::get('orders/{id}', [OrderController::class, 'show'])->name('orders.show');
+    Route::get('orders/{id}/edit', [OrderController::class, 'edit'])->name('orders.edit');
+    Route::patch('orders/{id}', [OrderController::class, 'update'])->name('orders.update');
 });
 
 require __DIR__ . '/auth.php';
