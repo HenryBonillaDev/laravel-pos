@@ -29,7 +29,8 @@ class UpdateProduct
             $data['price'],
             $data['sale_price'],
             $data['other_price'],
-            $data['state']
+            $data['state'],
+            $data['is_drink']
         );
 
         $this->repository->save($Product);

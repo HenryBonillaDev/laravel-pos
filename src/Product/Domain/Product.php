@@ -8,10 +8,12 @@ class Product implements \Stringable
     private string $name;
     private string $stock;
     private string $id_category;
-    private string $price;
-    private string $sale_price;
-    private string $other_price;
+    private float $price;
+    private float $sale_price;
+    private float $other_price;
     private string $state;
+    private bool $is_drink;
+    private array $categories;
 
 
     public function __construct(
@@ -19,10 +21,11 @@ class Product implements \Stringable
         string $name,
         string $stock,
         string $id_category,
-        string $price,
-        string $sale_price,
-        string $other_price,
+        float $price,
+        float $sale_price,
+        float $other_price,
         string $state,
+        bool $is_drink
     )
     {
         $this->id = $id;
@@ -33,30 +36,40 @@ class Product implements \Stringable
         $this->sale_price = $sale_price;
         $this->other_price = $other_price;
         $this->state = $state;
+        $this->is_drink = $is_drink;
+
+    }
+
+    public function addCategory(Category $category): void
+    {
+        $this->categories[] = $category;
     }
 
     public static function create(
         string $name,
         string $stock,
         string $id_category,
-        string $price,
-        string $sale_price,
-        string $other_price,
-        string $state
+        float $price,
+        float $sale_price,
+        float $other_price,
+        string $state,
+        bool $is_drink
+
     ): self
     {
         $id = uuid_create(UUID_TYPE_RANDOM);
-        return new self($id, $name, $stock, $id_category, $price,$sale_price,$other_price,$state);
+        return new self($id, $name, $stock, $id_category, $price,$sale_price,$other_price,$state, $is_drink);
     }
 
     public function updateDetails(
         string $name,
         string $stock,
         string $id_category,
-        string $price,
-        string $sale_price,
-        string $other_price,
-        string $state
+        float $price,
+        float $sale_price,
+        float $other_price,
+        string $state,
+        bool $is_drink
     ): void
     {
         $this->name = $name;
@@ -66,6 +79,7 @@ class Product implements \Stringable
         $this->sale_price = $sale_price;
         $this->other_price = $other_price;
         $this->state = $state;
+        $this->is_drink=$is_drink;
     }
 
     private static function validate(
@@ -124,36 +138,6 @@ class Product implements \Stringable
         $this->id_category = $id_category;
     }
 
-    public function getPrice(): string
-    {
-        return $this->price;
-    }
-
-    public function setPrice(string $price): void
-    {
-        $this->price = $price;
-    }
-
-    public function getSalePrice(): string
-    {
-        return $this->sale_price;
-    }
-
-    public function setSalePrice(string $sale_price): void
-    {
-        $this->sale_price = $sale_price;
-    }
-
-    public function getOtherPrice(): string
-    {
-        return $this->other_price;
-    }
-
-    public function setOtherPrice(string $other_price): void
-    {
-        $this->other_price = $other_price;
-    }
-
     public function getState(): string
     {
         return $this->state;
@@ -162,6 +146,51 @@ class Product implements \Stringable
     public function setState(string $state): void
     {
         $this->state = $state;
+    }
+
+    public function getPrice(): float
+    {
+        return $this->price;
+    }
+
+    public function setPrice(float $price): void
+    {
+        $this->price = $price;
+    }
+
+    public function getSalePrice(): float
+    {
+        return $this->sale_price;
+    }
+
+    public function setSalePrice(float $sale_price): void
+    {
+        $this->sale_price = $sale_price;
+    }
+
+    public function getOtherPrice(): float
+    {
+        return $this->other_price;
+    }
+
+    public function setOtherPrice(float $other_price): void
+    {
+        $this->other_price = $other_price;
+    }
+
+    public function isIsDrink(): bool
+    {
+        return $this->is_drink;
+    }
+
+    public function setIsDrink(bool $is_drink): void
+    {
+        $this->is_drink = $is_drink;
+    }
+
+    public function getCategories(): array
+    {
+        return $this->categories;
     }
 
 

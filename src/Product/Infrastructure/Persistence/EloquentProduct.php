@@ -5,6 +5,7 @@ namespace Src\Product\Infrastructure\Persistence;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
+
 /**
  * @mixin Builder
  */
@@ -22,5 +23,11 @@ class EloquentProduct extends Model
         'sale_price',
         'other_price',
         'state',
+        'is_drink'
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'id_category', 'id');
+    }
 }

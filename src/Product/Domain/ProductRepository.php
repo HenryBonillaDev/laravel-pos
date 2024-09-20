@@ -12,5 +12,5 @@ interface ProductRepository
 
     public function findByName(string $email): ?Product;
 
-    public function findAll(): array;
+    public function     findAll(): array;
 }
