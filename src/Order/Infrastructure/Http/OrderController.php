@@ -2,6 +2,7 @@
 
 namespace Src\Order\Infrastructure\Http;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -13,7 +14,7 @@ use Src\Order\Application\UseCases\GetOrderById;
 use Src\Order\Application\UseCases\ListOrders;
 use Src\Order\Application\UseCases\UpdateOrders;
 
-class OrderController
+class OrderController extends Controller
 {
     private CreateOrder $createOrder;
     private UpdateOrders $updateOrder;
@@ -21,7 +22,7 @@ class OrderController
     private GetOrderById $findOrderById;
     private ListOrders $listOrders;
 
-    private GetCustomerById
+    private GetCustomerById $getCustomerById ;
 
     public function __construct(
         CreateOrder  $createOrder,

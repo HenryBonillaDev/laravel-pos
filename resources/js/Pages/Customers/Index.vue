@@ -162,7 +162,7 @@ const deleteCustomer = () => {
                         <div class="mb-4">
                             <label for="name" class="block text-sm font-medium text-gray-700">Nombre</label>
                             <input v-model="createForm.name" id="name" type="text"
-                                   class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+                                   class="mt-1 block w-full border-2 border-red-500 rounded-md shadow-sm" required>
                         </div>
                         <div class="mb-4">
                             <label for="last_name" class="block text-sm font-medium text-gray-700">Apellido</label>

@@ -82,7 +82,7 @@ class ProductController extends Controller
             return to_route('products.index');
         }
         $this->createProduct->execute($request->all());
-        toast_success('Cliente creado correctamente');
+        toast_success('Producto creado correctamente');
         return to_route('products.index');
     }
 

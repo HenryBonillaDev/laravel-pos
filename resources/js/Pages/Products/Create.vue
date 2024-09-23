@@ -17,8 +17,8 @@ const form = useForm({
     stock: '',
     id_category: '',
     price: '',
-    other_price: '2',
-    sale_price: '2',
+    other_price: '0',
+    sale_price: '0',
     is_drink: '',
     state: 'A'
 });
@@ -47,22 +47,22 @@ const cancelar = () => {
             <form @submit.prevent="submit">
                 <!-- Name -->
                 <div class="mb-4">
-                    <label for="name" class="block font-bold">Nombre del producto</label>
-                    <input v-model="form.name" id="name" type="text" class="border p-2 w-full" required>
+                    <label for="name" class="block text-sm font-medium text-gray-700">Nombre del producto</label>
+                    <input v-model="form.name" id="name" type="text" class="shadow appearance-none border rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-outline mt-2" required>
                     <span v-if="form.errors.name" class="text-red-600">{{ form.errors.name }}</span>
                 </div>
 
                 <!-- Stock -->
                 <div class="mb-4">
-                    <label for="stock" class="block font-bold">Stock</label>
-                    <input v-model="form.stock" id="stock" type="number" class="border p-2 w-full" required>
+                    <label for="stock" class="block text-sm font-medium text-gray-700">Stock</label>
+                    <input v-model="form.stock" id="stock" type="number" class="shadow appearance-none border rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-outline mt-2" required>
                     <span v-if="form.errors.stock" class="text-red-600">{{ form.errors.stock }}</span>
                 </div>
 
                 <!-- Categoria -->
                 <div class="mb-4">
-                    <label for="categoria" class="block font-bold">Categoría</label>
-                    <select v-model="form.id_category" id="categoory" class="border p-2 w-full" required>
+                    <label for="categoria" class="block text-sm font-medium text-gray-700">Categoría</label>
+                    <select v-model="form.id_category" id="categoory" class="shadow appearance-none border rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-outline mt-2" required>
                         <option value="" disabled>Seleccione una categoría</option>
                         <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.name }}</option>
                     </select>
@@ -71,15 +71,15 @@ const cancelar = () => {
 
                 <!-- Precio -->
                 <div class="mb-4">
-                    <label for="precio" class="block font-bold">Precio</label>
-                    <input v-model="form.price" id="precio" type="number" step="0.01" class="border p-2 w-full" required>
+                    <label for="precio" class="block text-sm font-medium text-gray-700">Precio</label>
+                    <input v-model="form.price" id="precio" type="number" step="0.01" class="shadow appearance-none border rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-outline mt-2" required>
                     <span v-if="form.errors.price" class="text-red-600">{{ form.errors.precio }}</span>
                 </div>
 
                 <!-- Is Drink -->
                 <div class="mb-4">
-                    <label for="is_drink" class="block font-bold">¿Es bebida?</label>
-                    <select v-model="form.is_drink" id="is_drink" class="border p-2 w-full" required>
+                    <label for="is_drink" class="block text-sm font-medium text-gray-700">¿Es bebida?</label>
+                    <select v-model="form.is_drink" id="is_drink" class="shadow appearance-none border rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-outline mt-2" required>
                         <option value="" disabled>Seleccione</option>
                         <option value="1">Sí</option>
                         <option value="0">No</option>
@@ -89,8 +89,8 @@ const cancelar = () => {
 
                 <!-- Submit -->
                 <div class="mb-4">
-                    <button type="submit" class="bg-blue-500 text-white px-4 py-2">Guardar Producto</button>
-                    <button @click="cancelar" type="button" class="bg-gray-500 text-white px-4 py-2 ml-4">Cancelar</button>
+                    <button type="submit" class="bg-blue-500 rounded text-white px-4 py-2">Guardar Producto</button>
+                    <button @click="cancelar" type="button" class="bg-gray-500 rounded text-white px-4 py-2 ml-4">Cancelar</button>
                 </div>
             </form>
         </div>

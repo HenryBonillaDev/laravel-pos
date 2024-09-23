@@ -7,6 +7,10 @@ import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
+import {useDark, useToggle} from '@vueuse/core'
+
+const isDark = useDark()
+const toggleDark = useToggle()
 
 defineProps({
     title: String,
@@ -53,6 +57,7 @@ const logout = () => {
                                 </NavLink>
                             </div>
                         </div>
+                        <button @click="toggleDark()"  class="px-7 py-2 text-white bg-green-500 rounded dark:bg-purple-500"> Modo oscuro</button>
 
                         <div class="hidden sm:flex sm:items-center sm:ms-6">
                             <div class="ms-3 relative">
@@ -287,3 +292,13 @@ const logout = () => {
         </div>
     </div>
 </template>
+
+<style>
+html.dark{
+    color-scheme: dark;
+}
+
+body{
+    @apply bg-slate-50 text-slate-800 dark:bg-slate-800 dark:text-slate-50
+}
+</style>
