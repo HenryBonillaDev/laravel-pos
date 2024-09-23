@@ -67,4 +67,23 @@ class CustomerRepository implements CustomerRepositoryInterface
     {
         return EloquentCustomer::all()->toArray();
     }
+
+    public function findByDni(string $dni): ?Customer
+    {
+        try {
+            $eloquentCustomer = (new EloquentCustomer)->where('dni', 'ILIKE', $dni)->first();
+
+            return new Customer(
+                $eloquentCustomer->id,
+                $eloquentCustomer->name,
+                $eloquentCustomer->last_name,
+                $eloquentCustomer->doc_type,
+                $eloquentCustomer->dni,
+                $eloquentCustomer->email
+            );
+        } catch (Exception) {
+            return null;
+        }
+
+    }
 }

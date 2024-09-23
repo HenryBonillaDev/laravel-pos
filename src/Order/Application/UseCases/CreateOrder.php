@@ -2,6 +2,7 @@
 
 namespace Src\Order\Application\UseCases;
 
+use Src\Order\Domain\Enums\OrderStatus;
 use Src\Order\Domain\Order;
 use Src\Order\Domain\OrderRepositoryInterface;
 
@@ -17,15 +18,15 @@ class CreateOrder
     public function execute(array $orderData): Order
     {
         $order = new Order(
-            $orderData['id'] ?? null,
+            null,
             $orderData['idCustomer'],
             $orderData['idUser'],
-            $orderData['state'],
-            $orderData['paymentMethod'],
+            OrderStatus::Pending->label(),
+            'Efectivo',
             $orderData['orderNumber'],
-            $orderData['voluntaryTipPercentage'] ?? 0,
-            $orderData['voluntaryTipValue'] ?? 0,
-            $orderData['tax']
+            0,
+            0,
+            0
         );
 
         $this->repository->save($order);

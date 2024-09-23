@@ -6,6 +6,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
+use Src\Customer\Application\UseCases\GetCustomerById;
 use Src\Order\Application\UseCases\CreateOrder;
 use Src\Order\Application\UseCases\DeleteOrder;
 use Src\Order\Application\UseCases\GetOrderById;
@@ -19,6 +20,8 @@ class OrderController
     private DeleteOrder $deleteOrder;
     private GetOrderById $findOrderById;
     private ListOrders $listOrders;
+
+    private GetCustomerById
 
     public function __construct(
         CreateOrder  $createOrder,
@@ -46,6 +49,9 @@ class OrderController
 
     public function createPage(): Response
     {
+        $newOrder = [
+
+        ];
         $this->createOrder->execute();
         return Inertia::render('Orders/Create');
     }

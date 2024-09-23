@@ -13,4 +13,6 @@ interface CustomerRepositoryInterface
     public function findByEmail(string $email): ?Customer;
 
     public function findAll(): array;
+
+    public function findByDni(string $dni): ?Customer;
 }

@@ -64,25 +64,29 @@ const openDeleteModal = (customer) => {
                     <thead>
                     <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                         <th class="px-4 py-3"># Orden</th>
-                        <th class="px-4 py-3">Mesa</th>
                         <th class="px-4 py-3">Cliente</th>
+                        <th class="px-4 py-3">Mesa</th>
                         <th class="px-4 py-3">Estado</th>
+                        <th class="px-4 py-3">Mesero</th>
                         <th class="px-4 py-3 flex justify-center">Acciones</th>
                     </tr>
                     </thead>
                     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                    <tr v-for="order in orders" :key="customer.id" class="text-gray-700">
+                    <tr v-for="order in orders" class="text-gray-700">
                         <td class="px-4 py3 text-sm">
                             {{ order.order_number }}
-                        </td>
-                        <td class="px-4 py3 text-sm">
-                            {{ order.table }}
                         </td>
                         <td class="px-4 py3 text-sm">
                             {{ order.customer.name ?? 'Consumidor final' }}
                         </td>
                         <td class="px-4 py3 text-sm">
+                            {{ order.table }}
+                        </td>
+                        <td class="px-4 py3 text-sm">
                             {{ customer.state }}
+                        </td>
+                        <td class="px-4 py3 text-sm">
+                            {{ order.user.name ?? '' }}
                         </td>
                         <td class="px-4 py3 text-sm flex justify-center">
                             <button @click="openEditModal(order)">
