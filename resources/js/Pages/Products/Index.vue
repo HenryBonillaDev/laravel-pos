@@ -1,9 +1,10 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import {Head, useForm} from "@inertiajs/vue3";
+import {Head, router, useForm} from "@inertiajs/vue3";
 import {onMounted, ref} from 'vue';
 import Create from './Create.vue';
 import Edit from './Edit.vue'
+import Delete from './Delete.vue';
 
 // Props
 const props = defineProps({
@@ -13,6 +14,7 @@ const props = defineProps({
 
 const showEditModal = ref(false);
 const selectedProduct = ref(null);
+const showDeleteModal = ref(false);
 
 // Estado reactivo para manejar el modal
 const showModal = ref(false);
@@ -34,10 +36,17 @@ const openEditModal = (product) => {
 const closeEditModal = () => {
     showEditModal.value = false;
 };
-const openDeleteModal = (customer) => {
-    currentCustomer.value = customer;
+
+const openDeleteModal = (product) => {
+    selectedProduct.value = product;
     showDeleteModal.value = true;
 };
+
+const closeDeleteModal = () => {
+    showDeleteModal.value = false;
+};
+
+
 </script>
 
 <template>
@@ -111,11 +120,16 @@ const openDeleteModal = (customer) => {
             <div v-if="showEditModal" class="modal-overlay">
                 <div class="bg-white p-6 rounded shadow-lg w-1/2">
                     <!-- Aquí cargamos el componente Edit y le pasamos el producto a editar -->
-                    <Edit :product="selectedProduct" @close="closeEditModal" />
+                    <Edit :product="selectedProduct" :categories="categories" @close="closeEditModal" />
+                </div>
+            </div>
+
+            <div v-if="showDeleteModal" class="modal-overlay">
+                <div class="bg-white p-6 rounded shadow-lg w-1/2">
+                    <Edit :product="selectedProduct" @close="closeDeleteModal" />
                 </div>
             </div>
         </div>
-
         <template #header>
             Productos
         </template>

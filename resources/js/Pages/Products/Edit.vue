@@ -1,14 +1,18 @@
 <script setup>
-import { reactive, toRefs, watch } from 'vue';
-import {Head} from "@inertiajs/vue3";
+import {defineEmits, reactive, toRefs, watch} from 'vue';
+import {Head, useForm} from "@inertiajs/vue3";
 
 // Props
 const props = defineProps({
-    product: Object, // El producto que se va a editar
+    product: {type: Object},// El producto que se va a editar
+    categories: {type: Array}
 });
 
+const emit = defineEmits(['close']);
+
 // Formulario reactivo
-const editForm = reactive({
+const editForm = useForm({
+    id:'',
     name: '',
     stock: '',
     id_category: '',
@@ -22,63 +26,81 @@ const editForm = reactive({
 
 // Llenar el formulario cuando el producto cambie
 watch(() => props.product, (newProduct) => {
+    editForm.id = newProduct.id;
     editForm.name = newProduct.name;
     editForm.stock = newProduct.stock;
-    // otros campos...
+    editForm.id_category = newProduct.id_category;
+    editForm.price = newProduct.price;
+    editForm.other_price = newProduct.other_price;
+    editForm.sale_price = newProduct.sale_price;
+    editForm.is_drink = newProduct.is_drink? 1:0;
 }, { immediate: true });
 
 // Método para actualizar el producto
 const updateProduct = () => {
-    // Aquí iría la lógica para actualizar el producto, como una petición a una API
-    console.log('Producto actualizado', editForm);
-    // Emitir un evento de cierre (opcional)
+    console.log(editForm);
+    editForm.put(route('products.update', editForm.id), {
+        onSuccess: () => {
+            emit('close');
+        },
+    });
+};
+
+const cancelar = () => {
     emit('close');
 };
 </script>
 
 <template>
-    <Head title="Crear Productos"/>
+    <Head title="Editar Productos"/>
 
     <div>
         <h1 class="text-xl font-bold mb-4">Editar Producto</h1>
-            <form @submit.prevent="submit">
+            <form @submit.prevent="updateProduct">
                 <div class="mb-4">
-                    <label for="edit_name" class="block text-sm font-medium text-gray-700">Nombre</label>
-                    <input v-model="editForm.name" id="edit_name" type="text"
+                    <label for="name" class="block text-sm font-medium text-gray-700">Nombre</label>
+                    <input v-model="editForm.name" id="name" type="text"
                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
                 </div>
                 <div class="mb-4">
-                    <label for="edit_last_name" class="block text-sm font-medium text-gray-700">Apellido</label>
-                    <input v-model="editForm.stock" id="edit_last_name" type="text"
+                    <label for="stock" class="block text-sm font-medium text-gray-700">Stock</label>
+                    <input v-model="editForm.stock" id="stock" type="number"
                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
                 </div>
                 <div class="mb-4">
-                    <label for="edit_doc_type" class="block text-sm font-medium text-gray-700">Tipo Doc.</label>
-                    <input v-model="editForm.id_category" id="edit_doc_type" type="text"
+                    <label for="id_category" class="block font-bold">Categoría</label>
+                    <select v-model="editForm.id_category" id="id_category" class="border p-2 w-full" required>
+                        <option value="" disabled>Seleccione una categoría</option>
+                        <option v-for="category in categories" :key="category.id" :value="category.id">
+                            {{ category.name }}
+                        </option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label for="price" class="block text-sm font-medium text-gray-700">Precio</label>
+                    <input v-model="editForm.price" id="price" type="number"
                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
                 </div>
                 <div class="mb-4">
-                    <label for="edit_dni" class="block text-sm font-medium text-gray-700"># de Doc.</label>
-                    <input v-model="editForm.price" id="edit_dni" type="text"
+                    <label for="other_price" class="block text-sm font-medium text-gray-700">Otro precio</label>
+                    <input v-model="editForm.other_price" id="other_price" type="number"
                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
                 </div>
                 <div class="mb-4">
-                    <label for="edit_email" class="block text-sm font-medium text-gray-700">Correo</label>
-                    <input v-model="editForm.other_price" id="edit_email" type="email"
+                    <label for="sale_price" class="block text-sm font-medium text-gray-700">Precio de venta</label>
+                    <input v-model="editForm.sale_price" id="sale_price" type="number"
                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
                 </div>
                 <div class="mb-4">
-                    <label for="edit_email" class="block text-sm font-medium text-gray-700">Correo</label>
-                    <input v-model="editForm.sale_price" id="edit_email" type="email"
-                           class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
-                </div>
-                <div class="mb-4">
-                    <label for="edit_email" class="block text-sm font-medium text-gray-700">Correo</label>
-                    <input v-model="editForm.is_drink" id="edit_email" type="email"
-                           class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+                    <label for="is_drink" class="block text-sm font-medium text-gray-700">¿Es bebida?</label>
+                    <select v-model="editForm.is_drink" id="is_drink" class="shadow appearance-none border rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-outline mt-2" required>
+                        <option :value="null" disabled>Seleccione</option>
+                        <option :value="1">Sí</option>
+                        <option :value="0">No</option>
+                    </select>
                 </div>
                 <div class="flex justify-end">
-                    <button type="submit" class="bg-blue-500 rounded text-white px-4 py-2">Guardar Producto</button>
+                    <button type="submit" class="bg-blue-500 rounded text-white px-4 py-2">Guardar</button>
                     <button @click="cancelar" type="button" class="bg-gray-500 rounded text-white px-4 py-2 ml-4">Cancelar</button>
                 </div>
             </form>
