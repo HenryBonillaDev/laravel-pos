@@ -2,9 +2,14 @@
 
 namespace Src\Order\Infrastructure\Persistence;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Src\Customer\Infrastructure\Persistence\EloquentCustomer;
 use Src\Order\Domain\Order;
+use Src\Product\Infrastructure\Persistence\EloquentProduct;
 
 /**
  * @mixin Builder
@@ -39,34 +44,23 @@ class EloquentOrder extends Model
         'tax' => 'integer',
     ];
 
-    public function toDomain(): Order
+    public function customer(): BelongsTo
     {
-        return new Order(
-            $this->id,
-            $this->id_customer,
-            $this->id_user,
-            $this->state,
-            $this->payment_method,
-            $this->order_number,
-            $this->voluntary_tip_percentage,
-            $this->voluntary_tip_value,
-            $this->tax
-        );
+        return $this->belongsTo(EloquentCustomer::class, 'id_customer');
     }
 
-    public static function fromDomain(Order $order): self
+    public function user(): BelongsTo
     {
-        $model = new self();
-        $model->id = $order->getId();
-        $model->id_customer = $order->getIdCustomer();
-        $model->id_user = $order->getIdUser();
-        $model->state = $order->getState();
-        $model->payment_method = $order->getPaymentMethod();
-        $model->order_number = $order->getOrderNumber();
-        $model->voluntary_tip_percentage = $order->getVoluntaryTipPercentage();
-        $model->voluntary_tip_value = $order->getVoluntaryTipValue();
-        $model->tax = $order->getTax();
+        return $this->belongsTo(User::class, 'id_user');
+    }
 
-        return $model;
+    public function orderItems(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            EloquentProduct::class,
+            'orders_products',
+            'id_order',
+            'id_product')
+            ->withPivot('sale_price_product', 'comment');
     }
 }

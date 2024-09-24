@@ -3,12 +3,14 @@
 namespace Src\Order\Domain;
 
 use Ramsey\Uuid\Uuid;
+use Src\Customer\Domain\Customer;
+use Src\User\Domain\User;
 
 class Order
 {
     private string $id;
-    private string $idCustomer;
-    private int $idUser;
+    private Customer $customer;
+    private User $user;
     private string $state;
     private string $paymentMethod;
     private int $orderNumber;
@@ -16,27 +18,34 @@ class Order
     private int $voluntaryTipValue;
     private int $tax;
 
+    /**
+     * @var OrderItem[]|null
+     */
+    private ?array $items;
+
     public function __construct(
-        string $id,
-        string $idCustomer,
-        int    $idUser,
-        string $state,
-        string $paymentMethod,
-        int    $orderNumber,
-        int    $voluntaryTipPercentage,
-        int    $voluntaryTipValue,
-        int    $tax,
+        string   $id,
+        Customer $customer,
+        User     $user,
+        string   $state,
+        string   $paymentMethod,
+        int      $orderNumber,
+        int      $voluntaryTipPercentage,
+        int      $voluntaryTipValue,
+        int      $tax,
+        ?array   $items = null
     )
     {
         $this->id = $id ?: Uuid::uuid4()->toString();
-        $this->idCustomer = $idCustomer;
-        $this->idUser = $idUser;
+        $this->customer = $customer;
+        $this->user = $user;
         $this->state = $state;
         $this->paymentMethod = $paymentMethod;
         $this->orderNumber = $orderNumber;
         $this->voluntaryTipPercentage = $voluntaryTipPercentage;
         $this->voluntaryTipValue = $voluntaryTipValue;
         $this->tax = $tax;
+        $this->items = $items;
     }
 
     public function getId(): string
@@ -49,24 +58,24 @@ class Order
         $this->id = $id;
     }
 
-    public function getIdCustomer(): string
+    public function getCustomer(): Customer
     {
-        return $this->idCustomer;
+        return $this->customer;
     }
 
-    public function setIdCustomer(string $idCustomer): void
+    public function setCustomer(Customer $customer): void
     {
-        $this->idCustomer = $idCustomer;
+        $this->customer = $customer;
     }
 
-    public function getIdUser(): int
+    public function getUser(): User
     {
-        return $this->idUser;
+        return $this->user;
     }
 
-    public function setIdUser(int $idUser): void
+    public function setUser(User $user): void
     {
-        $this->idUser = $idUser;
+        $this->user = $user;
     }
 
     public function getState(): string
@@ -129,4 +138,28 @@ class Order
         $this->tax = $tax;
     }
 
+    public function getItems(): ?array
+    {
+        return $this->items;
+    }
+
+    public function setItems(?array $items): void
+    {
+        $this->items = $items;
+    }
+
+    public function addItem($item): void
+    {
+        if ($this->items === null) {
+            $this->items = [];
+        }
+        $this->items[] = $item;
+    }
+
+    public function removeItem($item): void
+    {
+        if (($key = array_search($item, $this->items)) !== false) {
+            unset($this->items[$key]);
+        }
+    }
 }
