@@ -61,8 +61,8 @@ const cancelar = () => {
 
                 <!-- Categoria -->
                 <div class="mb-4">
-                    <label for="categoria" class="block text-sm font-medium text-gray-700">Categoría</label>
-                    <select v-model="form.id_category" id="categoory" class="shadow appearance-none border rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-outline mt-2" required>
+                    <label for="id_category" class="block text-sm font-medium text-gray-700">Categoría</label>
+                    <select v-model="form.id_category" id="id_category" class="shadow appearance-none border rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-outline mt-2" required>
                         <option value="" disabled>Seleccione una categoría</option>
                         <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.name }}</option>
                     </select>

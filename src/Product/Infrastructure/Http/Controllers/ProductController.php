@@ -95,7 +95,7 @@ class ProductController extends Controller
         return response()->json($Product);
     }
 
-    public function update(Request $request, $id): JsonResponse
+    public function update(Request $request, $id): RedirectResponse
     {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
@@ -108,11 +108,12 @@ class ProductController extends Controller
             'is_drink'=>'required|boolean'
         ]);
 
-        $Product = $this->updateProduct->execute($id, $validatedData);
-        if (!$Product) {
-            return response()->json(['message' => 'Product not found'], 404);
+        $product = $this->updateProduct->execute($id, $validatedData);
+        if (!$product) {
+            toast_error('No se pudo actualizar el producto');
         }
-        return response()->json($Product);
+        toast_success('Producto actualizado correctamente');
+        return to_route('products.index');
     }
 
     public function destroy($id): JsonResponse

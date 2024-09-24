@@ -53,7 +53,7 @@ Route::middleware('auth')->group(function () {
     //Products
     Route::get('products', [ProductController::class, 'index'])->name('products.index');
     Route::post('products/create', [ProductController::class, 'store'])->name('products.store');
-//    Route::get('products/create', [ProductController::class, 'getCategories'])->name('products.getCategories');
+    Route::put('products/{id}', [ProductController::class, 'update'])->name('products.update');
 
 
     //Orders

@@ -74,7 +74,7 @@ class EloquentProductRepository implements ProductRepository
 
     public function findAll(): array
     {
-        return EloquentProduct::with('category')->get()->toArray();
+        return EloquentProduct::with('category')->where('state', 'A')->get()->toArray();
 //        return EloquentProduct::all()->toArray();
     }
 }
