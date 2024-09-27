@@ -22,7 +22,7 @@ class OrderController extends Controller
     private GetOrderById $findOrderById;
     private ListOrders $listOrders;
 
-    private GetCustomerById $getCustomerById ;
+    private GetCustomerById $getCustomerById;
 
     public function __construct(
         CreateOrder  $createOrder,
@@ -42,18 +42,21 @@ class OrderController extends Controller
     public function index(): Response
     {
         $orders = $this->listOrders->execute();
-
         return Inertia::render('Orders/Index', [
+            'orders' => $orders
+        ]);
+    }
+
+    public function cashierIndex(): Response
+    {
+        $orders = $this->listOrders->execute();
+        return Inertia::render('Cashier/Index', [
             'orders' => $orders
         ]);
     }
 
     public function createPage(): Response
     {
-        $newOrder = [
-
-        ];
-        $this->createOrder->execute();
         return Inertia::render('Orders/Create');
     }
 

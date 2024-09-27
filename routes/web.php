@@ -58,6 +58,7 @@ Route::middleware('auth')->group(function () {
 
     //Orders
     Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('orders', [OrderController::class, 'cashierIndex'])->name('cashier.index');
     Route::get('orders/create', [OrderController::class, 'createPage'])->name('orders.create.page');
     Route::get('orders/{id}', [OrderController::class, 'show'])->name('orders.show');
     Route::get('orders/{id}/edit', [OrderController::class, 'edit'])->name('orders.edit');

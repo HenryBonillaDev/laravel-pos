@@ -18,8 +18,20 @@
                         Inicio
                     </NavLink>
                 </li>
-
-                <li class="relative px-6 py-3">
+                <li v-if="isAdmin || isCashier" class="relative px-6 py-3">
+                    <NavLink :href="route('cashier.index')" :active="route().current('cashier.index')">
+                        <template #icon>
+                            <svg class="w-6 h-6 text-gray-800" aria-hidden="true"
+                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <title>cash-register</title>
+                                <path
+                                    d="M2,17H22V21H2V17M6.25,7H9V6H6V3H14V6H11V7H17.8C18.8,7 19.8,8 20,9L20.5,16H3.5L4.05,9C4.05,8 5.05,7 6.25,7M13,9V11H18V9H13M6,9V10H8V9H6M9,9V10H11V9H9M6,11V12H8V11H6M9,11V12H11V11H9M6,13V14H8V13H6M9,13V14H11V13H9M7,4V5H13V4H7Z"/>
+                            </svg>
+                        </template>
+                        Caja
+                    </NavLink>
+                </li>
+                <li v-if="isAdmin || isWaiter" class="relative px-6 py-3">
                     <NavLink :href="route('orders.index')" :active="route().current('orders.index')">
                         <template #icon>
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
@@ -34,7 +46,7 @@
                     </NavLink>
                 </li>
 
-                <li class="relative px-6 py-3">
+                <li v-if="isAdmin" class="relative px-6 py-3">
                     <NavLink :href="route('products.index')" :active="route().current('products.index')">
                         <template #icon>
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
@@ -49,7 +61,7 @@
                     </NavLink>
                 </li>
 
-                <li class="relative px-6 py-3">
+                <li v-if="isAdmin" class="relative px-6 py-3">
                     <NavLink :href="route('customers.index')" :active="route().current('customers.index')">
                         <template #icon>
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
@@ -63,7 +75,7 @@
                     </NavLink>
                 </li>
 
-                <li class="relative px-6 py-3">
+                <li v-if="isAdmin" class="relative px-6 py-3">
                     <NavLink :href="route('users.index')" :active="route().current('users.index')">
                         <template #icon>
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
@@ -77,7 +89,7 @@
                     </NavLink>
                 </li>
 
-                <li class="relative px-6 py-3">
+                <li v-if="user" class="relative px-6 py-3">
                     <NavLink :href="route('about')" :active="route().current('about')">
                         <template #icon>
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
@@ -89,8 +101,7 @@
                         Nosotros
                     </NavLink>
                 </li>
-
-                <li class="relative px-6 py-3">
+                <li v-if="false" class="relative px-6 py-3">
                     <button @click="showingTwoLevelMenu = !showingTwoLevelMenu"
                             class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
                             aria-haspopup="true">
@@ -121,23 +132,19 @@
     </aside>
 </template>
 
-<script>
+<script setup>
 import NavLink from '@/Components/NavLink.vue'
-import {Link} from '@inertiajs/vue3';
-import {ref} from 'vue'
+import {Link, usePage} from '@inertiajs/vue3';
+import {computed, ref} from 'vue'
 
-export default {
-    components: {
-        NavLink,
-        Link,
-    },
+const page = usePage()
 
-    setup() {
-        let showingTwoLevelMenu = ref(false)
+const user = computed(() => page.props.auth.user)
+const roles = computed(() => page.props.auth.roles)
+const isAdmin = computed(() => roles.value.includes('admin'))
+const isWaiter = computed(() => roles.value.includes('waiter'))
+const isCashier = computed(() => roles.value.includes('cashier'))
+const isCustomer = computed(() => roles.value.includes('customer'))
 
-        return {
-            showingTwoLevelMenu
-        }
-    },
-}
+const showingTwoLevelMenu = ref(false)
 </script>

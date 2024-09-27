@@ -20,7 +20,7 @@ class HandleInertiaRequests extends Middleware
      * @param Request $request
      * @return string|null
      */
-    public function version(Request $request)
+    public function version(Request $request): ?string
     {
         return parent::version($request);
     }
@@ -36,6 +36,7 @@ class HandleInertiaRequests extends Middleware
         return array_merge(parent::share($request), [
             'auth' => [
                 'user' => $request->user(),
+                'roles' => $request->user() ? $request->user()->getRoleNames() : [],
             ],
             'flash' => fn() => [
                 'toasts' => $request->session()->get('toasts'),
