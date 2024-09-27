@@ -36,9 +36,23 @@
                             Inicio
                         </ResponsiveNavLink>
                     </li>
-
-                    <li class="relative px-6 py-3">
-                        <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                    <li v-if="isAdmin || isCashier" class="relative px-6 py-3">
+                        <ResponsiveNavLink :href="route('cashier.index')" :active="route().current('cashier.index')">
+                            <template #icon>
+                                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                     viewBox="0 0 24 24">
+                                    <title>cash-register</title>
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                          stroke-width="1"
+                                          d="M2,17H22V21H2V17M6.25,7H9V6H6V3H14V6H11V7H17.8C18.8,7 19.8,8 20,9L20.5,16H3.5L4.05,9C4.05,8 5.05,7 6.25,7M13,9V11H18V9H13M6,9V10H8V9H6M9,9V10H11V9H9M6,11V12H8V11H6M9,11V12H11V11H9M6,13V14H8V13H6M9,13V14H11V13H9M7,4V5H13V4H7Z"/>
+                                </svg>
+                            </template>
+                            Caja
+                        </ResponsiveNavLink>
+                    </li>
+                    <li v-if="isAdmin || isWaiter" class="relative px-6 py-3">
+                        <ResponsiveNavLink :href="route('orders.index')" :active="route().current('orders.index')">
                             <template #icon>
                                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                      xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
@@ -52,7 +66,7 @@
                         </ResponsiveNavLink>
                     </li>
 
-                    <li class="relative px-6 py-3">
+                    <li v-if="isAdmin" class="relative px-6 py-3">
                         <ResponsiveNavLink :href="route('products.index')" :active="route().current('products.index')">
                             <template #icon>
                                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
@@ -67,7 +81,7 @@
                         </ResponsiveNavLink>
                     </li>
 
-                    <li class="relative px-6 py-3">
+                    <li v-if="isAdmin" class="relative px-6 py-3">
                         <ResponsiveNavLink :href="route('customers.index')"
                                            :active="route().current('customers.index')">
                             <template #icon>
@@ -83,7 +97,7 @@
                         </ResponsiveNavLink>
                     </li>
 
-                    <li class="relative px-6 py-3">
+                    <li v-if="isAdmin" class="relative px-6 py-3">
                         <ResponsiveNavLink :href="route('users.index')" :active="route().current('users.index')">
                             <template #icon>
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -96,7 +110,7 @@
                         </ResponsiveNavLink>
                     </li>
 
-                    <li class="relative px-6 py-3">
+                    <li v-if="user" class="relative px-6 py-3">
                         <ResponsiveNavLink :href="route('about')" :active="route().current('about')">
                             <template #icon>
                                 <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
@@ -109,17 +123,19 @@
                         </ResponsiveNavLink>
                     </li>
 
-                    <li class="relative px-6 py-3">
+                    <!--TODO ejemplo desplegable-->
+                    <li v-if="false" class="relative px-6 py-3">
                         <button @click="showingTwoLevelMenu = !showingTwoLevelMenu"
                                 class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
                                 aria-haspopup="true">
-                <span class="inline-flex items-center">
-                    <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
-                         stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                        <path d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
-                    </svg>
-                    <span class="ml-4">Two-level menu</span>
-                </span>
+                            <span class="inline-flex items-center">
+                                <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
+                                     stroke-linejoin="round"
+                                     stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+                                </svg>
+                                <span class="ml-4">Two-level menu</span>
+                            </span>
                             <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd"
                                       d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
@@ -142,8 +158,18 @@
 
 <script setup>
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue'
-import {Link} from '@inertiajs/vue3';
-import {ref} from 'vue'
+import {Link, usePage} from '@inertiajs/vue3';
+import {computed, ref} from 'vue'
 
-let showingTwoLevelMenu = ref(false)
+const page = usePage()
+
+const user = computed(() => page.props.auth.user)
+const roles = computed(() => page.props.auth.roles)
+const isAdmin = computed(() => roles.value.includes('admin'))
+const isWaiter = computed(() => roles.value.includes('waiter'))
+const isCashier = computed(() => roles.value.includes('cashier'))
+const isCustomer = computed(() => roles.value.includes('customer'))
+
+const showingTwoLevelMenu = ref(false)
+
 </script>
