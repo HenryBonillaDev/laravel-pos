@@ -87,9 +87,9 @@ const deleteCustomer = () => {
         </template>
 
         <div class="p-4 bg-white rounded-lg shadow-xs">
-            <button @click="openCreateModal" class="mb-4 px-4 py-2 bg-blue-500 text-white rounded float-right">
+            <v-btn color="primary" @click="openCreateModal" class="mb-4 px-4 py-2 bg-blue-500 text-white rounded float-right">
                 Crear Cliente
-            </button>
+            </v-btn>
 
             <div class="w-full overflow-x-auto">
                 <table class="w-full whitespace-no-wrap">

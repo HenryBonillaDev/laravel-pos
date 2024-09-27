@@ -1,4 +1,4 @@
-import 'vuetify/styles' //Estilos de vuetify
+import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
 import { mdi } from 'vuetify/iconsets/mdi-svg'
 import * as components from 'vuetify/components'
@@ -18,7 +18,7 @@ const vuetify = createVuetify({
             light: {
                 dark: false,
                 colors: {
-                    primary: '#9C27B0',
+                    primary: '#9865EA',
                 }
             },
         },

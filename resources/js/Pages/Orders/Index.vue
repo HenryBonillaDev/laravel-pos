@@ -48,10 +48,9 @@ const getStatusInfo = (status) => {
 
         <div class="p-4 bg-white rounded-lg shadow-xs">
             <div class="w-full flex justify-end">
-                <button :href="route('orders.create.page')"
-                        class="px-4 py-2 bg-blue-500 text-white rounded">
+                <v-btn color="primary" :href="route('orders.create')">
                     Crear Nueva Orden
-                </button>
+                </v-btn>
             </div>
             <div class="w-full">
                 <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400 mb-3">
