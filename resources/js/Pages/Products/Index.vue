@@ -126,7 +126,7 @@ const closeDeleteModal = () => {
 
             <div v-if="showDeleteModal" class="modal-overlay">
                 <div class="bg-white p-6 rounded shadow-lg w-1/2">
-                    <Edit :product="selectedProduct" @close="closeDeleteModal" />
+                    <Delete :product="selectedProduct" @close="closeDeleteModal" />
                 </div>
             </div>
         </div>

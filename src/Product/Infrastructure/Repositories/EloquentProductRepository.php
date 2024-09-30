@@ -47,7 +47,10 @@ class EloquentProductRepository implements ProductRepository
 
     public function delete(string $id): bool
     {
-        return EloquentProduct::destroy($id) > 0;
+        // Update a specific product based on a condition (e.g., where id = $id)
+       return  EloquentProduct::where('id', $id)->update(['state' => 'D']);
+
+//        return EloquentProduct::destroy($id) > 0;
     }
 
     public function findByName(string $name): ?Product

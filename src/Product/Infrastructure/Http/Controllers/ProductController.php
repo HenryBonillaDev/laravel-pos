@@ -3,9 +3,11 @@
 namespace Src\Product\Infrastructure\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Application;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -116,13 +118,16 @@ class ProductController extends Controller
         return to_route('products.index');
     }
 
-    public function destroy($id): JsonResponse
+
+    public function destroy($id): Application|Redirector|RedirectResponse
     {
         $deleted = $this->deleteProduct->execute($id);
-        if (!$deleted) {
-            return response()->json(['message' => 'Product not found'], 404);
+        if ($deleted) {
+            toast_success('Producto eliminado correctamente');
+        } else {
+            toast_error('Producto no encontrado');
         }
-        return response()->json(['message' => 'Product deleted successfully'], 200);
+        return to_route('products.index');
     }
 
     public function getCategories():array

@@ -10,7 +10,7 @@ const props = defineProps({
 const emit = defineEmits(['close']);
 const productToDelete = props.product;
 const deleteProduct = () => {
-    router.delete(route('customers.destroy', productToDelete.id), {
+    router.delete(route('products.destroy', productToDelete.id), {
         onSuccess: () => {
             showDeleteModal.value = false;
         }
@@ -23,7 +23,6 @@ const cancelar = () => {
 </script>
 
 <template>
-        <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-2/5">
             <h2 class="text-lg font-semibold mb-4">Eliminar Producto</h2>
             <p>¿Estás seguro de que deseas eliminar el producto {{ product.name }}?</p>
             <div class="flex justify-end mt-4">
@@ -32,7 +31,6 @@ const cancelar = () => {
                     Eliminar
                 </button>
             </div>
-        </div>
 </template>
 
 <style scoped>

@@ -10,6 +10,8 @@ class Entity
     private string $description;
     private string $url;
     private string $image;
+    private int $nit;
+    private string $social_reason;
 
     public function __construct()
     {
@@ -74,5 +76,26 @@ class Entity
     {
         $this->image = $image;
     }
+
+    public function getNit(): int
+    {
+        return $this->nit;
+    }
+
+    public function setNit(int $nit): void
+    {
+        $this->nit = $nit;
+    }
+
+    public function getSocialReason(): string
+    {
+        return $this->social_reason;
+    }
+
+    public function setSocialReason(string $social_reason): void
+    {
+        $this->social_reason = $social_reason;
+    }
+
 
 }

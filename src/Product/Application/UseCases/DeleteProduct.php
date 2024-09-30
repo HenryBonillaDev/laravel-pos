@@ -20,7 +20,7 @@ class DeleteProduct
         if (!$product) {
             return false;
         }
-        $this->repository->delete($product->id());
+        $this->repository->delete($product->getId());
 
         return true;
     }
