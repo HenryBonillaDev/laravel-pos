@@ -1,6 +1,6 @@
 import './bootstrap';
-import 'vue3-toastify/dist/index.css'
 import '../css/app.css';
+import 'vue3-toastify/dist/index.css'
 
 import {createApp, h} from 'vue';
 import {createInertiaApp, Link} from '@inertiajs/vue3';
